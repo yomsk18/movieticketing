@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CinemaAdmin - Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #2a2a2a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background: #3a3a3a;
+      padding: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 20px;
+      background: #2a2a2a;
+    }
+
+    .logo-icon {
+      width: 20px;
+      height: 20px;
+      background: #666;
+      border-radius: 2px;
+    }
+
+    .logo-text {
+      color: #ff6b6b;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .nav-menu li {
+      margin: 0;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 14px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #d0d0d0;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item.active {
+      background: #d32f2f;
+      color: #fff;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: #2a2a2a;
+    }
+
+    .header {
+      background: #4a4a4a;
+      padding: 20px 30px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header-title {
+      color: #ff7b7b;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: #6b4f4f;
+      border-radius: 10px;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 48px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: #d0d0d0;
+      font-size: 13px;
+    }
+
+    .activity-section {
+      background: #4a4a4a;
+      border-radius: 10px;
+      padding: 25px 30px;
+    }
+
+    .section-title {
+      color: #ff7b7b;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .activity-table thead {
+      background: #6b5252;
+    }
+
+    .activity-table th {
+      padding: 12px 15px;
+      text-align: left;
+      color: #ff9999;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .activity-table td {
+      padding: 15px;
+      color: #d0d0d0;
+      font-size: 13px;
+      background: #3a3a3a;
+    }
+
+    .activity-table tbody tr:not(:last-child) td {
+      border-bottom: 1px solid #4a4a4a;
+    }
+
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text">CinemaAdmin</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-item active">Dashboard</a></li>
+        <li><a href="tellermanagement.html" class="nav-item">Teller Management</a></li>
+        <li><a href="moviemanagement.html" class="nav-item">Movie Management</a></li>
+        <li><a href="activitylogs.html" class="nav-item">Activity Logs</a></li>
+        <li><a href="systemlogs.html" class="nav-item">System Logs</a></li>
+        <li><a href="salesreport.html" class="nav-item">Sales Reports</a></li>
+        <li><a href="performance.html" class="nav-item">Performance Reports</a></li>
+        <li><a href="settings.html" class="nav-item">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="header">
+        <h1 class="header-title">Dashboard Overview</h1>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">156</div>
+          <div class="stat-label">Total Reservations Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8</div>
+          <div class="stat-label">Active Tellers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Movies Playing</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">₱45,680</div>
+          <div class="stat-label">Today's Revenue</div>
+        </div>
+      </div>
+
+      <div class="activity-section">
+        <h2 class="section-title">Recent Activity</h2>
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>User</th>
+              <th>Action</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>14:35</td>
+              <td>Teller_001</td>
+              <td>Reservation</td>
+              <td>Spider-Man - 15:30 showing</td>
+            </tr>
+            <tr>
+              <td>14:28</td>
+              <td>Admin</td>
+              <td>Movie Added</td>
+              <td>New movie: "The Batman"</td>
+            </tr>
+            <tr>
+              <td>14:15</td>
+              <td>Teller_003</td>
+              <td>Cancellation</td>
+              <td>Ticket #TKT-2024-0156</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

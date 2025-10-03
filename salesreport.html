@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CinemaAdmin - Sales Report</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #2a2a2a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 200px;
+      background: #3a3a3a;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      padding: 20px; background: #2a2a2a;
+    }
+    .logo-icon { width: 20px; height: 20px; background: #666; border-radius: 2px; }
+    .logo-text { color: #ff6b6b; font-size: 16px; font-weight: 600; }
+
+    .nav-menu { list-style: none; margin-top: 10px; }
+    .nav-item {
+      display: block; padding: 14px 20px;
+      color: #d0d0d0; font-size: 13px;
+      text-decoration: none; transition: 0.2s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-item.active { background: #d32f2f; color: #fff; font-weight: 600; }
+
+    .main-content { flex: 1; padding: 20px; }
+
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #4a4a4a; padding: 20px 30px;
+      border-radius: 10px; margin-bottom: 20px;
+    }
+    .header-title { color: #ff7b7b; font-size: 24px; font-weight: 600; }
+
+    .header-actions { display: flex; gap: 10px; }
+    .btn {
+      padding: 8px 12px; border-radius: 5px;
+      font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer;
+    }
+    .btn-green { background: #2ecc71; color: #fff; }
+    .btn-blue { background: #3498db; color: #fff; }
+    .btn-teal { background: #1abc9c; color: #fff; }
+    .btn-yellow { background: #f1c40f; color: #000; }
+
+    .reporting-period {
+      font-size: 13px; color: #d0d0d0;
+      margin: 10px 0 20px;
+    }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 15px; margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #6b4f4f; border-radius: 10px;
+      padding: 30px 20px; text-align: center;
+    }
+    .stat-value { font-size: 32px; font-weight: bold; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: #d0d0d0; }
+    .stat-sub { font-size: 12px; color: #ffcc99; }
+
+    .section {
+      background: #4a4a4a; border-radius: 10px;
+      padding: 25px 30px; margin-bottom: 20px;
+    }
+    .section-title {
+      color: #ffa366; font-size: 18px; font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .revenue-list {
+      display: grid; gap: 10px;
+      font-size: 13px; color: #d0d0d0;
+    }
+    .revenue-item {
+      display: flex; justify-content: space-between;
+    }
+    .revenue-item.total {
+      font-weight: bold; color: #ff6b6b;
+      border-top: 1px solid #666; padding-top: 10px;
+    }
+
+    .payment-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 15px;
+    }
+    .payment-card {
+      background: #3a3a3a; border-radius: 10px;
+      padding: 20px; text-align: center;
+    }
+    .payment-label { font-size: 13px; color: #ff9999; margin-bottom: 6px; }
+    .payment-value { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+    .payment-percent { font-size: 12px; color: #d0d0d0; }
+
+    @media(max-width:1200px){
+      .stats-grid, .payment-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:768px){
+      .stats-grid, .payment-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text">CinemaAdmin</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+        <li><a href="tellermanagement.html" class="nav-item">Teller Management</a></li>
+        <li><a href="moviemanagement.html" class="nav-item">Movie Management</a></li>
+        <li><a href="activitylogs.html" class="nav-item">Activity Logs</a></li>
+        <li><a href="systemlogs.html" class="nav-item">System Logs</a></li>
+        <li><a href="salesreport.html" class="nav-item active">Sales Reports</a></li>
+        <li><a href="performance.html" class="nav-item">Performance Reports</a></li>
+        <li><a href="settings.html" class="nav-item">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="header">
+        <h1 class="header-title">Total Sales Report</h1>
+        <div class="header-actions">
+          <button class="btn btn-green">Refresh</button>
+          <button class="btn btn-blue">Export PDF</button>
+          <button class="btn btn-teal">Export Excel</button>
+          <button class="btn btn-yellow">Print</button>
+        </div>
+      </div>
+
+      <div class="reporting-period">
+        Reporting Period: September 1–26, 2024<br>
+        Projected Period: September 27–30, 2024
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">₱3,245,680</div>
+          <div class="stat-label">Total Sales</div>
+          <div class="stat-sub">+15% from last period</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8,947</div>
+          <div class="stat-label">Total Tickets Sold</div>
+          <div class="stat-sub">+13.8% from last period</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">₱363</div>
+          <div class="stat-label">Average Ticket Price</div>
+          <div class="stat-sub">+2.1% from last period</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">₱124,834</div>
+          <div class="stat-label">Average Daily Revenue</div>
+          <div class="stat-sub">+8.5% from last period</div>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="section-title">Revenue Summary</div>
+        <div class="revenue-list">
+          <div class="revenue-item"><span>Gross Sales (Ticket Revenue)</span><span>₱3,245,680</span></div>
+          <div class="revenue-item"><span>Concessions</span><span>₱265,230</span></div>
+          <div class="revenue-item"><span>Online Booking Fees</span><span>₱89,470</span></div>
+          <div class="revenue-item"><span>Discounts</span><span>₱-89,470</span></div>
+                   <div class="revenue-item"><span>Net Total Revenue</span><span>₱3,620,780</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Payment Method Breakdown</div>
+        <div class="payment-grid">
+          <div class="payment-card">
+            <div class="payment-label">Cash</div>
+            <div class="payment-value">₱1,238,340</div>
+            <div class="payment-percent">38.5% of total</div>
+          </div>
+          <div class="payment-card">
+            <div class="payment-label">Credit Card</div>
+            <div class="payment-value">₱1,234,210</div>
+            <div class="payment-percent">38.3% of total</div>
+          </div>
+          <div class="payment-card">
+            <div class="payment-label">E-wallet</div>
+            <div class="payment-value">₱649,140</div>
+            <div class="payment-percent">20.0% of total</div>
+          </div>
+          <div class="payment-card">
+            <div class="payment-label">Online Banking</div>
+            <div class="payment-value">₱499,090</div>
+            <div class="payment-percent">15.2% of total</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

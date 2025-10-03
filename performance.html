@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CinemaAdmin - Performance Overview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #2a2a2a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 200px;
+      background: #3a3a3a;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      padding: 20px; background: #2a2a2a;
+    }
+    .logo-icon { width: 20px; height: 20px; background: #666; border-radius: 2px; }
+    .logo-text { color: #ff6b6b; font-size: 16px; font-weight: 600; }
+
+    .nav-menu { list-style: none; margin-top: 10px; }
+    .nav-item {
+      display: block; padding: 14px 20px;
+      color: #d0d0d0; font-size: 13px;
+      text-decoration: none; transition: 0.2s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-item.active { background: #d32f2f; color: #fff; font-weight: 600; }
+
+    .main-content { flex: 1; padding: 20px; }
+
+    .header {
+      background: #4a4a4a; padding: 20px 30px;
+      border-radius: 10px; margin-bottom: 20px;
+    }
+    .header-title { color: #ff7b7b; font-size: 24px; font-weight: 600; }
+
+    /* KPI cards */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 15px; margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #6b4f4f; border-radius: 10px;
+      padding: 25px 20px; text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: bold; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: #d0d0d0; }
+
+    /* KPI indicators */
+    .kpi-section {
+      background: #4a4a4a; border-radius: 10px;
+      padding: 25px 30px; margin-bottom: 20px;
+    }
+    .section-title {
+      color: #ff7b7b; font-size: 18px; font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 15px;
+    }
+    .kpi-card {
+      background: #3a3a3a; border-radius: 10px;
+      padding: 15px; text-align: center;
+    }
+    .kpi-value { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    .kpi-label { font-size: 13px; color: #d0d0d0; }
+
+    /* Performance by day */
+    .day-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 13px; margin-top: 10px;
+    }
+    .day-table thead { background: #6b5252; }
+    .day-table th {
+      padding: 10px; text-align: left;
+      color: #ff9999; font-weight: 600;
+    }
+    .day-table td {
+      padding: 10px; background: #3a3a3a; color: #d0d0d0;
+    }
+    .day-table tbody tr:not(:last-child) td {
+      border-bottom: 1px solid #4a4a4a;
+    }
+
+    @media(max-width:1200px){
+      .stats-grid, .kpi-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:768px){
+      .stats-grid, .kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text">CinemaAdmin</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+        <li><a href="tellermanagement.html" class="nav-item">Teller Management</a></li>
+        <li><a href="moviemanagement.html" class="nav-item">Movie Management</a></li>
+        <li><a href="activitylogs.html" class="nav-item">Activity Logs</a></li>
+        <li><a href="systemlogs.html" class="nav-item">System Logs</a></li>
+        <li><a href="salesreport.html" class="nav-item">Sales Reports</a></li>
+        <li><a href="performance.html" class="nav-item active">Performance Reports</a></li>
+        <li><a href="settings.html" class="nav-item">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="header">
+        <h1 class="header-title">Performance Overview</h1>
+      </div>
+
+      <!-- Top KPIs -->
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">₱3,245,680</div><div class="stat-label">Revenue</div></div>
+        <div class="stat-card"><div class="stat-value">8,947</div><div class="stat-label">Tickets Sold</div></div>
+        <div class="stat-card"><div class="stat-value">87.5%</div><div class="stat-label">Average Occupancy</div></div>
+        <div class="stat-card"><div class="stat-value">₱363</div><div class="stat-label">Average Ticket Price</div></div>
+      </div>
+
+      <!-- KPI Indicators -->
+      <section class="kpi-section">
+        <div class="section-title">Key Performance Indicators</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-value">456</div><div class="kpi-label">Total Shows</div></div>
+          <div class="kpi-card"><div class="kpi-value">432</div><div class="kpi-label">Completed</div></div>
+          <div class="kpi-card"><div class="kpi-value">24</div><div class="kpi-label">Cancelled</div></div>
+          <div class="kpi-card"><div class="kpi-value">0</div><div class="kpi-label">No Shows</div></div>
+          <div class="kpi-card"><div class="kpi-value">Friday</div><div class="kpi-label">Peak Day</div></div>
+          <div class="kpi-card"><div class="kpi-value">7:00–9:00 PM</div><div class="kpi-label">Peak Time</div></div>
+        </div>
+      </section>
+
+      <!-- Performance by Day -->
+      <section class="kpi-section">
+        <div class="section-title">Performance by Day of Week</div>
+        <table class="day-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Revenue</th>
+              <th>Tickets Sold</th>
+              <th>Occupancy</th>
+              <th>Shows</th>
+              <th>Avg Ticket Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Monday</td><td>₱245,000</td><td>852</td><td>68.5%</td><td>48</td><td>₱288</td></tr>
+            <tr><td>Tuesday</td><td>₱261,120</td><td>864</td><td>71.3%</td><td>48</td><td>₱302</td></tr>
+                        <tr><td>Wednesday</td><td>₱280,000</td><td>900</td><td>74.5%</td><td>48</td><td>₱311</td></tr>
+            <tr><td>Thursday</td><td>₱300,000</td><td>920</td><td>78.2%</td><td>48</td><td>₱326</td></tr>
+            <tr><td>Friday</td><td>₱500,000</td><td>1,200</td><td>92.3%</td><td>48</td><td>₱417</td></tr>
+            <tr><td>Saturday</td><td>₱859,560</td><td>2,157</td><td>95.6%</td><td>48</td><td>₱398</td></tr>
+            <tr><td>Sunday</td><td>₱799,000</td><td>1,954</td><td>91.8%</td><td>48</td><td>₱409</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

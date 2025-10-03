@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaAdmin - Teller Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #2a2a2a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #3a3a3a;
+            padding: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 20px;
+            background: #2a2a2a;
+        }
+
+        .logo-icon {
+            width: 20px;
+            height: 20px;
+            background: #666;
+            border-radius: 2px;
+        }
+
+        .logo-text {
+            color: #ff6b6b;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #d0d0d0;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.active {
+            background: #d32f2f;
+            color: #fff;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: #2a2a2a;
+        }
+
+        .header {
+            background: #4a4a4a;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            color: #ff7b7b;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #6b4f4f;
+            border-radius: 10px;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #d0d0d0;
+            font-size: 13px;
+        }
+
+        .activity-section {
+            background: #4a4a4a;
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: #ff7b7b;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-table thead {
+            background: #6b5252;
+        }
+
+        .activity-table th {
+            padding: 12px 15px;
+            text-align: left;
+            color: #ff9999;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .activity-table td {
+            padding: 15px;
+            color: #d0d0d0;
+            font-size: 13px;
+            background: #3a3a3a;
+        }
+
+        .activity-table tbody tr:not(:last-child) td {
+            border-bottom: 1px solid #4a4a4a;
+        }
+
+        /* Currently active tellers (matches activity-section styling) */
+        .tellers-section {
+            background: #4a4a4a;
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+        }
+
+        .tellers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .teller-card {
+            background: #3a3a3a;
+            border-radius: 10px;
+            padding: 16px 18px;
+        }
+
+        .teller-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .teller-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .teller-badge {
+            background: #2e7d32;
+            color: #eaffea;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .teller-badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #9cff9c;
+        }
+
+        .teller-info {
+            display: grid;
+            gap: 8px;
+            color: #d0d0d0;
+            font-size: 13px;
+        }
+
+        .kv {
+            display: flex;
+            gap: 10px;
+        }
+
+        .kv .k {
+            min-width: 110px;
+            color: #bfbfbf;
+        }
+
+        .kv .v {
+            color: #fff;
+        }
+
+        .nav-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.nav-menu li {
+  margin: 0;
+}
+
+.nav-item {
+  display: block;              /* makes the link fill the row */
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #d0d0d0;
+  font-size: 13px;
+  text-decoration: none;       /* remove underline */
+  border-left: 3px solid transparent; /* subtle indicator */
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: #d32f2f;
+  color: #fff;
+  font-weight: 600;
+  border-left: 3px solid #ffb3b3; /* highlight stripe */
+}
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .tellers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text">CinemaAdmin</div>
+      </div>
+      <aside class="sidebar">
+  <!-- ✅ Navigation menu -->
+  <ul class="nav-menu">
+    <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+    <li><a href="tellermanagement.html" class="nav-item active">Teller Management</a></li>
+    <li><a href="moviemanagement.html" class="nav-item">Movie Management</a></li>
+    <li><a href="activitylogs.html" class="nav-item">Activity Logs</a></li>
+    <li><a href="systemlogs.html" class="nav-item">System Logs</a></li>
+    <li><a href="salesreport.html" class="nav-item">Sales Reports</a></li>
+    <li><a href="performance.html" class="nav-item">Performance Reports</a></li>
+    <li><a href="settings.html" class="nav-item">Settings</a></li>
+  </ul>
+</aside>
+    </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h1 class="header-title">Teller Management</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Total Tellers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Active Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">On Break</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Offline</div>
+                </div>
+            </div>
+
+            <section class="tellers-section">
+                <h2 class="section-title">Currently Active Tellers</h2>
+                <div class="tellers-grid">
+                    <!-- Teller 1 -->
+                    <article class="teller-card">
+                        <div class="teller-top">
+                            <div class="teller-name">Juan Dela Cruz</div>
+                            <span class="teller-badge"><span class="teller-badge-dot"></span> Active</span>
+                        </div>
+                        <div class="teller-info">
+                            <div class="kv">
+                                <div class="k">Location</div>
+                                <div class="v">Cinema 01 | TEL002</div>
+                            </div>
+                            <div class="kv">
+                                <div class="k">Login time</div>
+                                <div class="v">08:30 AM</div>
+                            </div>
+                            <div class="kv">
+                                <div class="k">Tickets sold today</div>
+                                <div class="v">23</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Teller 2 -->
+                    <article class="teller-card">
+                        <div class="teller-top">
+                            <div class="teller-name">Maria Santos</div>
+                            <span class="teller-badge"><span class="teller-badge-dot"></span> Active</span>
+                        </div>
+                        <div class="teller-info">
+                            <div class="kv">
+                                <div class="k">Location</div>
+                                <div class="v">Cinema 02 | TEL003</div>
+                            </div>
+                            <div class="kv">
+                                <div class="k">Login time</div>
+                                <div class="v">09:00 AM</div>
+                            </div>
+                            <div class="kv">
+                                <div class="k">Tickets sold today</div>
+                                <div class="v">15</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <div class="activity-section">
+                <h2 class="section-title">Recent Activity</h2>
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10:02</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Sale</td>
+                            <td>Spider-Man — Cinema 1 — ₱350</td>
+                        </tr>
+                        <tr>
+                            <td>09:41</td>
+                            <td>Maria Santos</td>
+                            <td>Sale</td>
+                            <td>Inside Out 2 — Cinema 2 — ₱320</td>
+                        </tr>
+                        <tr>
+                            <td>09:15</td>
+                            <td>TEL004</td>
+                            <td>Break</td>
+                            <td>Marked status to On Break</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

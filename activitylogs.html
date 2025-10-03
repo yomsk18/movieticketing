@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CinemaAdmin - Activity Logs</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #2a2a2a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 200px;
+      background: #3a3a3a;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      padding: 20px; background: #2a2a2a;
+    }
+    .logo-icon { width: 20px; height: 20px; background: #666; border-radius: 2px; }
+    .logo-text { color: #ff6b6b; font-size: 16px; font-weight: 600; }
+
+    .nav-menu { list-style: none; margin-top: 10px; }
+    .nav-item {
+      display: block; padding: 14px 20px;
+      color: #d0d0d0; font-size: 13px;
+      text-decoration: none; transition: 0.2s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-item.active { background: #d32f2f; color: #fff; font-weight: 600; }
+
+    .main-content { flex: 1; padding: 20px; }
+
+    .header {
+      background: #4a4a4a; padding: 20px 30px;
+      border-radius: 10px; margin-bottom: 20px;
+    }
+    .header-title { color: #ff7b7b; font-size: 24px; font-weight: 600; }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 15px; margin-bottom: 20px;
+    }
+    .stat-card {
+      background: #6b4f4f; border-radius: 10px;
+      padding: 30px 20px; text-align: center;
+    }
+    .stat-value { font-size: 36px; font-weight: bold; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: #d0d0d0; }
+
+    .section {
+      background: #4a4a4a; border-radius: 10px;
+      padding: 25px 30px; margin-bottom: 20px;
+    }
+    .section-title {
+      color: #ff7b7b; font-size: 18px; font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Filter form */
+    .filter-form {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      gap: 10px; margin-bottom: 20px;
+    }
+    .filter-form input, .filter-form select {
+      padding: 8px; border-radius: 5px; border: none;
+      background: #3a3a3a; color: #fff; font-size: 13px;
+    }
+    .btn-green {
+      background: #2ecc71; color: #fff;
+      border: none; border-radius: 5px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; padding: 8px;
+    }
+
+    /* Table */
+    .activity-table { width: 100%; border-collapse: collapse; }
+    .activity-table thead { background: #6b5252; }
+    .activity-table th {
+      padding: 12px 15px; text-align: left;
+      color: #ff9999; font-weight: 600; font-size: 13px;
+    }
+    .activity-table td {
+      padding: 12px 15px; font-size: 13px;
+      background: #3a3a3a; color: #d0d0d0;
+    }
+    .activity-table tbody tr:not(:last-child) td {
+      border-bottom: 1px solid #4a4a4a;
+    }
+
+    /* Status labels */
+    .status-success { color: #2ecc71; font-weight: 600; }
+    .status-warning { color: #f1c40f; font-weight: 600; }
+    .status-info    { color: #3498db; font-weight: 600; }
+
+    @media(max-width:1200px){
+      .stats-grid{ grid-template-columns: repeat(2,1fr); }
+      .filter-form{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text">CinemaAdmin</div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-item">Dashboard</a></li>
+        <li><a href="tellermanagement.html" class="nav-item">Teller Management</a></li>
+        <li><a href="moviemanagement.html" class="nav-item">Movie Management</a></li>
+        <li><a href="activitylogs.html" class="nav-item active">Activity Logs</a></li>
+        <li><a href="systemlogs.html" class="nav-item">System Logs</a></li>
+        <li><a href="salesreport.html" class="nav-item">Sales Reports</a></li>
+        <li><a href="performance.html" class="nav-item">Performance Reports</a></li>
+        <li><a href="settings.html" class="nav-item">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="header">
+        <h1 class="header-title">Activity Logs</h1>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">2,341</div><div class="stat-label">Total Activities Today</div></div>
+        <div class="stat-card"><div class="stat-value">156</div><div class="stat-label">Ticket Sales</div></div>
+        <div class="stat-card"><div class="stat-value">23</div><div class="stat-label">Login Events</div></div>
+        <div class="stat-card"><div class="stat-value">8</div><div class="stat-label">System Changes</div></div>
+      </div>
+
+      <!-- Filter -->
+      <section class="section">
+        <h2 class="section-title">Filter Activity Logs</h2>
+        <form class="filter-form">
+          <input type="date" placeholder="Date From">
+          <input type="date" placeholder="Date To">
+          <input type="text" placeholder="User">
+          <select>
+            <option>Action Type</option>
+            <option>Ticket Sale</option>
+            <option>Login</option>
+            <option>System Change</option>
+          </select>
+          <button class="btn-green">Apply Filter</button>
+        </form>
+      </section>
+
+      <!-- Table -->
+      <section class="section">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>User</th>
+              <th>Action</th>
+              <th>Details</th>
+              <th>IP Address</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024-09-18 14:22:01</td>
+              <td>Teller_001</td>
+              <td>Ticket Sale</td>
+              <td>Spider-Man - Cinema 1 - 15:30 - ₱350</td>
+              <td>192.168.1.10</td>
+              <td class="status-success">Success</td>
+            </tr>
+            <tr>
+              <td>2024-09-18 14:20:45</td>
+              <td>Admin</td>
+              <td>Movie Added</td>
+              <td>"The Batman" to system</td>
+              <td>192.168.1.1</td>
+              <td class="status-info">Info</td>
+            </tr>
+            <tr>
+              <td>2024-09-18 14:19:30</td>
+              <td>Teller_003</td>
+              <td>Login Attempt</td>
+              <td>Failed login - Invalid credentials</td>
+              <td>192.168.1.12</td>
+
+             <td class="status-warning">Warning</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
